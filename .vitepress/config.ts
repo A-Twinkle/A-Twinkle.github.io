@@ -33,6 +33,8 @@ export default defineConfig({
   lang: 'zh-CN',
   title: 'Kasei',
   description: '个人博客',
+  // GitHub Pages 项目站：https://<user>.github.io/blog/
+  base: '/blog/',
   appearance: 'dark',
   cleanUrls: true,
   // 锚点滚动 / 目录高亮偏移：随顶栏高度动态计算（默认 134px 与自定义顶栏不匹配）
