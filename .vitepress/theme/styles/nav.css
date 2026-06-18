@@ -1,0 +1,175 @@
+/**
+ * 导航栏 — 右侧操作区（参考 gravitymaker gap-x-5 布局）
+ */
+
+/* 隐藏 VitePress 默认导航项，由 NavRight 统一渲染 */
+.VPNavBar .menu,
+.VPNavBar .search,
+.VPNavBarAppearance,
+.VPNavScreenAppearance,
+.VPNavBarExtra {
+  display: none !important;
+}
+
+/* 右侧一组：文章 / 关于 / 搜索 / 主题 */
+.nav-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  column-gap: var(--gm-nav-gap);
+  margin-left: auto;
+}
+
+.nav-right-link {
+  font-size: var(--gm-font-size-nav);
+  line-height: var(--gm-line-height-ui);
+  font-weight: var(--gm-font-weight-normal);
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+
+.nav-right-link:hover,
+.nav-right-link.active {
+  color: var(--vp-c-brand-1);
+}
+
+.nav-right-icon,
+.nav-appearance-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  width: 1rem;
+  height: 1rem;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--vp-c-text-1);
+  cursor: pointer;
+  transition: color 0.25s;
+}
+
+.nav-right-icon:hover,
+.nav-appearance-icon:hover {
+  color: var(--vp-c-brand-1);
+}
+
+.nav-right-icon:focus-visible,
+.nav-appearance-icon:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 4px;
+}
+
+.nav-right-icon .vp-icon,
+.nav-appearance-icon .vpi-sun,
+.nav-appearance-icon .vpi-moon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.nav-appearance-icon .vpi-sun,
+.nav-appearance-icon .vpi-moon {
+  position: absolute;
+  transition: opacity 0.25s;
+}
+
+html:not(.dark) .nav-appearance-icon .sun {
+  opacity: 1;
+}
+
+html:not(.dark) .nav-appearance-icon .moon {
+  opacity: 0;
+}
+
+html.dark .nav-appearance-icon .sun {
+  opacity: 0;
+}
+
+html.dark .nav-appearance-icon .moon {
+  opacity: 1;
+}
+
+/* 窄屏：链接进汉堡菜单，右侧只留搜索 + 主题 + 菜单按钮 */
+@media (max-width: 767px) {
+  .nav-right-link {
+    display: none;
+  }
+
+  .VPNavBar .content-body {
+    column-gap: var(--gm-nav-gap);
+  }
+
+  /* 使用自定义菜单按钮，隐藏 VitePress 默认汉堡（避免 X 与横线并存） */
+  .VPNavBarHamburger {
+    display: none !important;
+  }
+}
+
+/* 自定义菜单按钮：两横线 ↔ 关闭 X */
+.nav-menu-toggle {
+  position: relative;
+  display: none;
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--vp-c-text-1);
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .nav-menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.nav-menu-toggle .line {
+  position: absolute;
+  left: 0;
+  width: 1rem;
+  height: 2px;
+  border-radius: 1px;
+  background-color: currentColor;
+  transition:
+    transform 0.25s ease,
+    top 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.nav-menu-toggle .line-a {
+  top: 4px;
+}
+
+.nav-menu-toggle .line-b {
+  top: 10px;
+}
+
+.nav-menu-toggle.open .line-a {
+  top: 7px;
+  transform: rotate(45deg);
+}
+
+.nav-menu-toggle.open .line-b {
+  top: 7px;
+  transform: rotate(-45deg);
+}
+
+.nav-menu-toggle:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 4px;
+}
+
+/* content-body 整体右对齐 */
+.VPNavBar .content-body {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+}

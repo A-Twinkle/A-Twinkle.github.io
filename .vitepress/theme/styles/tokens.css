@@ -1,0 +1,229 @@
+/**
+ * Design tokens — 所有颜色/间距只在这里定义，组件只引用变量
+ */
+
+:root {
+  /* layout */
+  --gm-shell-max: 80rem;
+  --gm-gutter-x: 1.5rem;
+  --gm-page-pt: 2rem;
+  --gm-page-pb: 6rem;
+  --gm-nav-gap: 1.25rem;
+  --gm-aside-width: 16rem; /* 256px — 目录栏占位宽 */
+  --gm-aside-inner-width: 14rem; /* 224px — 目录内容宽 */
+  --gm-aside-gap: 2rem; /* 正文与目录间距 */
+  --gm-aside-padding-start: 2rem; /* 32px — 目录相对正文的外侧间距 */
+  --gm-aside-sticky-top: calc(var(--vp-nav-height) + 1.5rem);
+  --gm-aside-sticky-max-height: calc(100vh - var(--vp-nav-height) - 1.5rem);
+  --vp-nav-height: 4rem;
+
+  /* typography — 参考 gravitymaker / Blowfish (Tailwind prose) */
+  --gm-font-size-root: 16px;
+  --gm-font-size-base: 1.125rem; /* 18px — 页面基线 */
+  --gm-font-size-nav: 1rem; /* 16px — 顶栏菜单 */
+  --gm-font-size-prose: 1rem; /* 16px — 文章正文 */
+  --gm-font-size-sm: 0.875rem; /* 14px — 日期 / 列表元信息 */
+  --gm-font-size-lg: 1.125rem; /* 18px */
+  --gm-font-size-h1: 2.25rem; /* 36px */
+  --gm-font-size-h1-md: 2.25rem;
+  --gm-font-size-h2: 1.5rem; /* 24px — Recent 等区块标题 */
+  --gm-font-size-h3: 1.25rem; /* 20px — 文章小节 */
+  --gm-font-size-card-title: 1.25rem; /* 20px — 列表文章标题 */
+  --gm-line-height-base: 1.75; /* 28px @ 16px prose */
+  --gm-line-height-ui: 1.5556; /* 28px @ 18px body */
+  --gm-line-height-h1: 2.5rem; /* 40px */
+  --gm-line-height-h1-md: 2.5rem;
+  --gm-line-height-h2: 2rem; /* 32px */
+  --gm-line-height-h3: 2rem; /* 32px @ 20px */
+  --gm-line-height-meta: 1.5rem; /* 24px @ 16px meta */
+  --gm-font-weight-normal: 400;
+  --gm-font-weight-medium: 500;
+  --gm-font-weight-semibold: 600;
+  --gm-font-weight-bold: 700;
+  --gm-font-weight-extrabold: 800;
+  --gm-letter-spacing-heading: normal;
+  --gm-prose-max: 42rem;
+
+  --vp-font-family-base: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  /* brand palette */
+  --gm-gray: #565959;
+  --gm-gray-light: #bdbfbf;
+  --gm-blue: #0d5fa6;
+  --gm-blue-hover: #094e8c;
+  --gm-teal: #24b0bf;
+  --gm-teal-light: #8fd9d9;
+
+  /* light theme — Blowfish zinc 色阶 */
+  --gm-bg: #fafafa;
+  --gm-bg-alt: #f4f4f5;
+  --gm-text: #0a0a0c;
+  --gm-heading: #18181b;
+  --gm-prose: #27272a;
+  --gm-muted: #3f3f46;
+  --gm-meta: #71717a;
+  --gm-year: var(--gm-blue);
+  --gm-border: color-mix(in srgb, var(--gm-gray-light) 65%, white);
+  --gm-accent: var(--gm-blue);
+  --gm-accent-soft: var(--gm-blue);
+  --gm-accent-hover: var(--gm-teal);
+
+  /*
+   * Chip / Tag 体系（参考 neutral badge 思路）
+   * - 低饱和背景 + 深灰字，对比度 ≥ WCAG AA
+   * - 类型靠文字区分，不靠高饱和色块
+   * - hover 仅加深背景/边框，不换色相
+   */
+  --gm-chip-bg: color-mix(in srgb, var(--gm-gray-light) 16%, white);
+  --gm-chip-bg-hover: color-mix(in srgb, var(--gm-gray-light) 28%, white);
+  --gm-chip-border: color-mix(in srgb, var(--gm-gray-light) 52%, white);
+  --gm-chip-border-hover: color-mix(in srgb, var(--gm-gray) 22%, var(--gm-gray-light));
+  --gm-chip-text: var(--gm-gray);
+  --gm-chip-label: var(--gm-gray);
+
+  /* 搜索元信息 chip — 比可点击标签更轻 */
+  --gm-meta-chip-bg: color-mix(in srgb, var(--gm-gray-light) 10%, var(--gm-bg));
+  --gm-meta-chip-border: color-mix(in srgb, var(--gm-gray-light) 38%, var(--gm-bg));
+  --gm-meta-chip-label: var(--gm-gray);
+  --gm-meta-chip-detail: color-mix(in srgb, var(--gm-gray) 88%, var(--gm-text));
+
+  /* 顶部渐变带高度 — 与 PageHero 一致 */
+  --gm-hero-band-height: min(520px, 55vh);
+  --gm-nav-border: color-mix(in srgb, var(--gm-gray-light) 28%, transparent);
+
+  /* 全页顶部渐变 — 仅冷色系，无暖黄 */
+  --gm-hero-gradient: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--gm-teal-light) 22%, var(--gm-bg)) 0%,
+    color-mix(in srgb, var(--gm-gray-light) 18%, var(--gm-bg)) 42%,
+    var(--gm-bg) 100%
+  );
+
+  /* 顶栏 / 二级导航 — 滚动后与页面底色一致，仅保留轻边框分隔 */
+  --gm-surface-bar: var(--gm-bg);
+  --gm-surface-bar-border: color-mix(in srgb, var(--gm-gray-light) 28%, transparent);
+  --gm-surface-panel: color-mix(in srgb, var(--gm-teal-light) 6%, var(--gm-bg));
+  --gm-surface-panel-border: color-mix(in srgb, var(--gm-gray-light) 35%, transparent);
+
+  /* 选中/焦点 — 蓝色系，不用暖黄 */
+  --gm-surface-selected: color-mix(in srgb, var(--gm-blue) 28%, var(--gm-gray-light));
+  --gm-focus-ring: color-mix(in srgb, var(--gm-blue) 45%, var(--gm-gray-light));
+
+  /* 可点击文章标签 — 蓝色描边，hover 同色系加深 */
+  --gm-tag-fg: var(--gm-blue);
+  --gm-tag-border: color-mix(in srgb, var(--gm-blue) 55%, transparent);
+  --gm-tag-bg: transparent;
+  --gm-tag-fg-hover: var(--gm-blue-hover);
+  --gm-tag-border-hover: var(--gm-blue-hover);
+  --gm-tag-bg-hover: color-mix(in srgb, var(--gm-blue) 10%, transparent);
+
+  /* 回到顶部浮动按钮 */
+  --gm-back-to-top-size: 2.75rem;
+  --gm-back-to-top-offset-x: 2.2rem;
+  --gm-back-to-top-offset-y: 4.2rem;
+  --gm-back-to-top-z: 25;
+  --gm-back-to-top-shadow: 0 4px 16px color-mix(in srgb, black 12%, transparent);
+  --gm-back-to-top-shadow-hover: 0 6px 20px color-mix(in srgb, black 18%, transparent);
+
+  /* VitePress 主题变量映射 */
+  --vp-c-bg: var(--gm-bg);
+  --vp-c-bg-alt: var(--gm-bg-alt);
+  --vp-c-bg-elv: #ffffff;
+  --vp-c-bg-soft: var(--gm-bg-alt);
+  --vp-c-text-1: var(--gm-text);
+  --vp-c-text-2: var(--gm-muted);
+  --vp-c-text-3: var(--gm-meta);
+  --vp-c-divider: var(--gm-border);
+  --vp-c-gutter: var(--gm-border);
+  --vp-c-brand-1: var(--gm-accent-soft);
+  --vp-c-brand-2: var(--gm-accent);
+  --vp-c-brand-3: var(--gm-accent-hover);
+  --vp-nav-bg-color: transparent;
+  --vp-nav-screen-bg-color: var(--gm-surface-bar);
+  --vp-local-search-bg: var(--gm-bg);
+}
+
+.dark {
+  --gm-bg: #09090b;
+  --gm-bg-alt: #18181b;
+  --gm-text: #ffffff;
+  --gm-heading: #ffffff;
+  --gm-prose: #d4d4d8;
+  --gm-muted: #d4d4d8;
+  --gm-meta: #a1a1aa;
+  --gm-year: var(--gm-teal-light);
+  --gm-border: color-mix(in srgb, var(--gm-gray) 55%, var(--gm-bg-alt));
+  --gm-accent: var(--gm-teal);
+  --gm-accent-soft: var(--gm-teal);
+  --gm-accent-hover: var(--gm-teal-light);
+
+  --gm-chip-bg: color-mix(in srgb, var(--gm-gray) 34%, var(--gm-bg-alt));
+  --gm-chip-bg-hover: color-mix(in srgb, var(--gm-gray) 46%, var(--gm-bg-alt));
+  --gm-chip-border: color-mix(in srgb, var(--gm-gray) 58%, var(--gm-bg-alt));
+  --gm-chip-border-hover: color-mix(in srgb, var(--gm-gray-light) 32%, var(--gm-gray));
+  --gm-chip-text: var(--gm-gray-light);
+  --gm-chip-label: var(--gm-gray-light);
+
+  --gm-meta-chip-bg: color-mix(in srgb, var(--gm-gray) 26%, var(--gm-bg));
+  --gm-meta-chip-border: color-mix(in srgb, var(--gm-gray) 44%, var(--gm-bg));
+  --gm-meta-chip-label: var(--gm-gray-light);
+  --gm-meta-chip-detail: color-mix(in srgb, var(--gm-gray-light) 92%, white);
+
+  --gm-hero-gradient: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--gm-blue) 20%, var(--gm-bg)) 0%,
+    color-mix(in srgb, var(--gm-teal) 12%, var(--gm-bg)) 42%,
+    var(--gm-bg) 100%
+  );
+
+  --gm-nav-border: color-mix(in srgb, var(--gm-gray) 45%, transparent);
+
+  --gm-surface-bar: color-mix(in srgb, var(--gm-blue) 10%, color-mix(in srgb, var(--gm-teal) 6%, var(--gm-bg)));
+  --gm-surface-bar-border: var(--gm-border);
+  --gm-surface-panel: color-mix(in srgb, var(--gm-blue) 8%, color-mix(in srgb, var(--gm-teal) 5%, var(--gm-bg-alt)));
+  --gm-surface-panel-border: var(--gm-border);
+
+  --gm-surface-selected: color-mix(in srgb, var(--gm-teal) 32%, var(--gm-gray));
+  --gm-focus-ring: color-mix(in srgb, var(--gm-teal) 50%, var(--gm-gray-light));
+
+  --gm-tag-fg: var(--gm-teal-light);
+  --gm-tag-border: color-mix(in srgb, var(--gm-teal) 55%, transparent);
+  --gm-tag-bg: transparent;
+  --gm-tag-fg-hover: var(--gm-teal);
+  --gm-tag-border-hover: var(--gm-teal);
+  --gm-tag-bg-hover: color-mix(in srgb, var(--gm-teal) 14%, transparent);
+
+  --vp-c-bg: var(--gm-bg);
+  --vp-c-bg-alt: var(--gm-bg-alt);
+  --vp-c-bg-elv: var(--gm-bg-alt);
+  --vp-c-bg-soft: var(--gm-bg-alt);
+  --vp-c-text-1: var(--gm-text);
+  --vp-c-text-2: var(--gm-muted);
+  --vp-c-text-3: var(--gm-meta);
+  --vp-c-divider: var(--gm-border);
+  --vp-c-gutter: var(--gm-border);
+  --vp-c-brand-1: var(--gm-accent-soft);
+  --vp-c-brand-2: var(--gm-accent);
+  --vp-c-brand-3: var(--gm-accent-hover);
+  --vp-nav-bg-color: transparent;
+  --vp-nav-screen-bg-color: var(--gm-surface-bar);
+  --vp-local-search-bg: var(--gm-bg);
+}
+
+@media (min-width: 768px) {
+  :root,
+  .dark {
+    --gm-gutter-x: 2rem;
+    --gm-page-pt: 3rem;
+    --gm-page-pb: 8rem;
+    --vp-nav-height: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root,
+  .dark {
+    --gm-gutter-x: 8rem;
+  }
+}

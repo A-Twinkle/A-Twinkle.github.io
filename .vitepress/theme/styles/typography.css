@@ -1,0 +1,205 @@
+/**
+ * 字体与排版 — 参考 gravitymaker.github.io (Hugo Blowfish / Tailwind prose)
+ */
+
+html {
+  font-size: var(--gm-font-size-root);
+  text-size-adjust: 100%;
+}
+
+body {
+  font-size: var(--gm-font-size-base);
+  line-height: var(--gm-line-height-ui);
+  font-weight: var(--gm-font-weight-normal);
+  font-family: var(--vp-font-family-base);
+  color: var(--gm-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.VPFooter .message,
+.VPFooter .copyright {
+  font-size: var(--gm-font-size-sm);
+  font-weight: var(--gm-font-weight-normal);
+  line-height: var(--gm-line-height-meta);
+  color: var(--gm-meta);
+}
+
+/* --- 文章正文：16px prose，28px 行高 --- */
+.VPDoc:not(.has-sidebar):not(.has-aside) .vp-doc {
+  width: 100%;
+  max-width: var(--gm-prose-max);
+  margin-inline: auto;
+  font-size: var(--gm-font-size-prose);
+  line-height: var(--gm-line-height-base);
+  color: var(--gm-prose);
+}
+
+.VPDoc.has-aside .vp-doc {
+  width: 100%;
+  max-width: 100%;
+  font-size: var(--gm-font-size-prose);
+  line-height: var(--gm-line-height-base);
+  color: var(--gm-prose);
+}
+
+.vp-doc h1 {
+  margin: 0 0 1rem;
+  font-size: var(--gm-font-size-h1);
+  line-height: var(--gm-line-height-h1);
+  font-weight: var(--gm-font-weight-extrabold);
+  letter-spacing: var(--gm-letter-spacing-heading);
+  color: var(--gm-heading);
+}
+
+@media (min-width: 768px) {
+  .vp-doc h1 {
+    font-size: var(--gm-font-size-h1-md);
+    line-height: var(--gm-line-height-h1-md);
+  }
+}
+
+.vp-doc h2 {
+  margin: 2.5rem 0 1rem;
+  padding-top: 0;
+  border-top: none;
+  font-size: var(--gm-font-size-h2);
+  line-height: var(--gm-line-height-h2);
+  font-weight: var(--gm-font-weight-extrabold);
+  letter-spacing: var(--gm-letter-spacing-heading);
+  color: var(--gm-heading);
+}
+
+/* 去掉 h2 顶部分割后，锚点 # 需回到标题行顶（覆盖 VP 默认 top: 24px） */
+.vp-doc h1 .header-anchor,
+.vp-doc h2 .header-anchor,
+.vp-doc h3 .header-anchor,
+.vp-doc h4 .header-anchor,
+.vp-doc h5 .header-anchor,
+.vp-doc h6 .header-anchor {
+  top: 0;
+  line-height: inherit;
+}
+
+.vp-doc h3 {
+  margin: 2rem 0 0.75rem;
+  font-size: var(--gm-font-size-h3);
+  line-height: var(--gm-line-height-h3);
+  font-weight: var(--gm-font-weight-semibold);
+  color: var(--gm-heading);
+}
+
+.vp-doc p,
+.vp-doc summary {
+  margin: 1.25rem 0;
+  font-size: inherit;
+  line-height: var(--gm-line-height-base);
+  color: var(--gm-prose);
+}
+
+.vp-doc ul,
+.vp-doc ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+  font-size: inherit;
+  line-height: var(--gm-line-height-base);
+  color: var(--gm-prose);
+}
+
+.vp-doc li {
+  color: var(--gm-prose);
+}
+
+.vp-doc strong {
+  color: var(--gm-heading);
+  font-weight: var(--gm-font-weight-semibold);
+}
+
+.vp-doc table {
+  color: var(--gm-prose);
+}
+
+.vp-doc li + li {
+  margin-top: 0.375rem;
+}
+
+.vp-doc a:not(.post-tag):not([href*='/tags/']):not([href*='/categories/']) {
+  font-weight: var(--gm-font-weight-medium);
+  color: var(--gm-accent-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--gm-accent-soft) 45%, transparent);
+  transition: color 0.2s, text-decoration-color 0.2s;
+}
+
+.vp-doc a:not(.post-tag):not([href*='/tags/']):not([href*='/categories/']):hover {
+  color: var(--gm-accent-hover);
+  text-decoration-color: var(--gm-accent-soft);
+}
+
+.vp-doc blockquote {
+  margin: 1.5rem 0;
+  padding: 0.75rem 0 0.75rem 1rem;
+  border-left: 3px solid color-mix(in srgb, var(--gm-accent) 35%, transparent);
+  color: var(--gm-muted);
+  background: color-mix(in srgb, var(--gm-bg-alt) 50%, transparent);
+  border-radius: 0 0.375rem 0.375rem 0;
+}
+
+.vp-doc blockquote > p {
+  margin: 0;
+}
+
+.vp-doc img {
+  display: block;
+  max-width: 100%;
+  margin: 1.5rem auto;
+  border-radius: 0.375rem;
+}
+
+.vp-doc hr {
+  margin: 2.5rem 0;
+  border: none;
+  border-top: 1px solid var(--gm-border);
+}
+
+/*
+ * VitePress 默认在小屏对代码块使用 margin: 16px -24px，让块级代码贴边。
+ * 本站水平间距由 .Layout 统一承担，负边距会导致代码块比正文更靠左/右。
+ */
+.vp-doc div[class*='language-'],
+.vp-doc .vp-block {
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+}
+
+@media (max-width: 639px) {
+  .vp-doc li div[class*='language-'] {
+    border-radius: 0.5rem;
+  }
+}
+
+/* 页脚导航与元信息保持低调 */
+.VPDocFooter {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--gm-border);
+}
+
+.VPDocFooter .pager-link {
+  font-size: var(--gm-font-size-sm);
+  font-weight: var(--gm-font-weight-medium);
+}
+
+.VPLastUpdated {
+  font-size: var(--gm-font-size-sm);
+  color: var(--gm-meta);
+}
+
+/* 文章页右侧目录 — 16px（覆盖 VP 默认 13px / 14px） */
+.Layout.gm-article-doc .VPDocAsideOutline .content,
+.Layout.gm-article-doc .VPDocAsideOutline .outline-title,
+.Layout.gm-article-doc .VPDocAsideOutline .VPDocOutlineItem .outline-link {
+  font-size: var(--gm-font-size-prose);
+}

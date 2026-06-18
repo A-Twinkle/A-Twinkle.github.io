@@ -1,0 +1,71 @@
+/**
+ * 回到顶部 — 全站右下角浮动按钮
+ * 视觉：与弹出面板 / 卡片阴影同一套 surface token
+ */
+
+.back-to-top {
+  position: fixed;
+  right: var(--gm-back-to-top-offset-x);
+  bottom: var(--gm-back-to-top-offset-y);
+  z-index: var(--gm-back-to-top-z);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--gm-back-to-top-size);
+  height: var(--gm-back-to-top-size);
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--gm-border);
+  border-radius: 9999px;
+  background-color: var(--gm-bg-alt);
+  color: var(--gm-muted);
+  cursor: pointer;
+  box-shadow: var(--gm-back-to-top-shadow);
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.back-to-top:hover {
+  color: var(--gm-accent-soft);
+  border-color: color-mix(in srgb, var(--gm-accent) 45%, var(--gm-border));
+  background-color: color-mix(in srgb, var(--gm-accent) 8%, var(--gm-bg-alt));
+  box-shadow: var(--gm-back-to-top-shadow-hover);
+}
+
+.back-to-top:focus-visible {
+  outline: 2px solid var(--gm-focus-ring);
+  outline-offset: 3px;
+}
+
+.back-to-top:active {
+  transform: translateY(1px);
+}
+
+.back-to-top-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.back-to-top-enter-active,
+.back-to-top-leave-active {
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+}
+
+.back-to-top-enter-from,
+.back-to-top-leave-to {
+  opacity: 0;
+  transform: translateY(0.75rem);
+}
+
+@media (max-width: 767px) {
+  .back-to-top {
+    right: calc(var(--gm-gutter-x) + 0.75rem);
+    bottom: calc(var(--gm-back-to-top-offset-y) + env(safe-area-inset-bottom, 0px));
+  }
+}

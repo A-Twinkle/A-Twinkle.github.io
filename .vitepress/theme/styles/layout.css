@@ -1,0 +1,196 @@
+/**
+ * 页面布局 — gravitymaker / Blowfish 外壳模型
+ *
+ * 维护约定：
+ * - 改水平间距 → tokens.css 的 --gm-gutter-x
+ * - 改最大宽度   → tokens.css 的 --gm-shell-max
+ * - 改页面上下留白 → tokens.css 的 --gm-page-pt / --gm-page-pb
+ * - 禁止在 pages.css / 组件内再写 padding-inline 或 max-width
+ *
+ * .Layout 是唯一水平外壳（等同参考站 body 上的 max-w-7xl + px-*）
+ * fixed 顶栏（VPNav / VPLocalNav）见下方例外，仍引用同一 token
+ */
+
+/* --- 唯一水平外壳 --- */
+.Layout {
+  width: 100%;
+  max-width: var(--gm-shell-max);
+  margin-inline: auto;
+  padding-inline: var(--gm-gutter-x);
+  box-sizing: border-box;
+}
+
+/* --- in-flow 子容器：填满外壳，不再各自加 gutter --- */
+.VPNavBar .wrapper {
+  padding: 0 !important;
+}
+
+.VPNavBar .container,
+.VPPage,
+.VPDoc:not(.has-sidebar) > .container,
+.VPFooter .container,
+.VPLocalNav .container {
+  width: 100%;
+  max-width: none !important;
+  margin-inline: 0 !important;
+  padding-inline: 0;
+  box-sizing: border-box;
+}
+
+/*
+ * fixed 例外：桌面顶栏 position:fixed 脱离 .Layout 流，
+ * 用同一 token 居中并施加 gutter，与正文左缘对齐
+ */
+@media (min-width: 960px) {
+  .Layout > .VPNav {
+    left: 50%;
+    right: auto;
+    width: min(100vw, var(--gm-shell-max));
+    max-width: var(--gm-shell-max);
+    transform: translateX(-50%);
+    padding-inline: var(--gm-gutter-x);
+    box-sizing: border-box;
+  }
+}
+
+/* 小屏滚动顶栏 fixed 时同样对齐外壳 */
+.VPLocalNav.fixed {
+  left: 50%;
+  right: auto;
+  width: min(100vw, var(--gm-shell-max));
+  max-width: var(--gm-shell-max);
+  transform: translateX(-50%);
+  padding-inline: var(--gm-gutter-x);
+  box-sizing: border-box;
+}
+
+.VPNavBar .title,
+.VPNavBar .content-body {
+  height: var(--vp-nav-height);
+}
+
+/* --- 垂直间距：仅内容层 --- */
+.VPPage,
+.VPDoc:not(.has-sidebar) {
+  padding-top: var(--gm-page-pt);
+  padding-bottom: var(--gm-page-pb);
+  box-sizing: border-box;
+}
+
+.VPPage .vp-doc {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* layout: doc（单篇文章等） */
+.VPDoc:not(.has-sidebar) {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.VPDoc:not(.has-sidebar):not(.has-aside) > .container {
+  display: block;
+}
+
+.VPDoc:not(.has-sidebar):not(.has-aside) .content,
+.VPDoc:not(.has-sidebar):not(.has-aside) .content-container,
+.VPDoc:not(.has-sidebar):not(.has-aside) .main {
+  max-width: 100% !important;
+  width: 100%;
+}
+
+/* 文章页右侧目录：≥960px 启用 aside 时恢复 VP 双栏布局 */
+@media (min-width: 960px) {
+  .VPDoc.has-aside:not(.has-sidebar) > .container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .Layout.gm-article-doc .VPDoc.has-aside:not(.has-sidebar) > .container {
+    justify-content: flex-start;
+    gap: var(--gm-aside-gap);
+  }
+}
+
+/*
+ * 文章页 — Blowfish 布局：封面/标题在 doc-top，正文与目录同列起始。
+ * 大屏目录：先随正文流排列，滚动后 sticky 吸顶（覆盖 VP 默认 fixed aside）。
+ */
+.Layout.gm-article-doc .VPDoc > .post-article-header {
+  width: 100%;
+}
+
+/* 正文列：无水平 padding / 无 max-width 居中 */
+.Layout.gm-article-doc .VPDoc .content-container,
+.Layout.gm-article-doc .VPDoc .main,
+.Layout.gm-article-doc .VPDoc .vp-doc {
+  width: 100%;
+  max-width: none !important;
+  margin-inline: 0 !important;
+  padding-inline: 0 !important;
+}
+
+.Layout.gm-article-doc .VPDoc > .container > .content {
+  margin-inline: 0 !important;
+  padding: 0 !important;
+}
+
+@media (min-width: 1280px) {
+  /* stretch：目录列与正文同高，sticky 才有滚动行程 */
+  .Layout.gm-article-doc .VPDoc.has-aside:not(.has-sidebar) > .container {
+    align-items: stretch;
+  }
+
+  .Layout.gm-article-doc .VPDoc.has-aside:not(.has-sidebar) > .container > .content {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: auto;
+    max-width: none !important;
+  }
+
+  .Layout.gm-article-doc .VPDoc.has-aside .aside {
+    flex: 0 0 var(--gm-aside-width);
+    align-self: stretch;
+    width: var(--gm-aside-width);
+    max-width: var(--gm-aside-width);
+    padding-left: var(--gm-aside-padding-start);
+    padding-right: 0;
+  }
+
+  .Layout.gm-article-doc .VPDoc.has-aside .aside-container {
+    position: sticky !important;
+    top: var(--gm-aside-sticky-top);
+    left: auto !important;
+    right: auto !important;
+    width: var(--gm-aside-inner-width);
+    height: auto !important;
+    max-height: var(--gm-aside-sticky-max-height);
+    padding-top: 0 !important;
+    overflow-x: visible;
+    overflow-y: auto;
+  }
+
+  .Layout.gm-article-doc .VPDoc.has-aside .aside-curtain {
+    display: none;
+  }
+
+  .Layout.gm-article-doc .VPDoc.has-aside .aside-content {
+    min-height: auto;
+    padding-bottom: 1.5rem;
+  }
+}
+
+.VPDoc .vp-doc {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+}
+
+/* 小屏顶栏 outline 下拉：水平由 .Layout 承担 */
+.VPLocalNavOutlineDropdown {
+  padding-inline: 0;
+}

@@ -1,0 +1,103 @@
+/**
+ * 本地搜索弹层 — 中性 metadata chip（类型靠文字，不靠色块）
+ */
+
+.VPLocalSearchBox .titles {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
+}
+
+.VPLocalSearchBox .titles .title:not(.main) {
+  display: block;
+  width: 100%;
+  font-size: 0.9375rem;
+  font-weight: var(--gm-font-weight-semibold);
+  color: var(--gm-text);
+  line-height: 1.35;
+}
+
+.VPLocalSearchBox .titles .title:not(.main) .local-search-icon {
+  display: none;
+}
+
+.VPLocalSearchBox .titles .title.main {
+  display: block;
+  width: 100%;
+  margin-top: 0;
+  font-size: 0.8125rem;
+  font-weight: var(--gm-font-weight-normal);
+  color: var(--gm-meta-chip-detail);
+  line-height: 1.45;
+}
+
+.VPLocalSearchBox .search-hit {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.375rem;
+}
+
+/* 标签 / 日期 / 章节 / 开篇 — 统一 neutral chip */
+.VPLocalSearchBox .search-hit-type {
+  flex: none;
+  padding: 0.0625rem 0.4375rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--gm-meta-chip-border);
+  background: var(--gm-meta-chip-bg);
+  color: var(--gm-meta-chip-label);
+  font-size: 0.6875rem;
+  font-weight: var(--gm-font-weight-semibold);
+  letter-spacing: 0.02em;
+  line-height: 1.45;
+}
+
+.VPLocalSearchBox .search-hit-sep {
+  color: var(--gm-gray-light);
+  font-weight: var(--gm-font-weight-normal);
+}
+
+.VPLocalSearchBox .search-hit-detail {
+  color: var(--gm-meta-chip-detail);
+  font-weight: var(--gm-font-weight-normal);
+}
+
+.VPLocalSearchBox .title-icon {
+  display: none;
+}
+
+.VPLocalSearchBox .local-search-icon {
+  margin-inline: 0.125rem;
+  font-size: 0.625rem;
+  opacity: 0.55;
+}
+
+.VPLocalSearchBox .result.selected {
+  border-color: var(--gm-surface-selected);
+}
+
+.VPLocalSearchBox .result.selected .search-hit-detail {
+  color: var(--gm-text);
+}
+
+.VPLocalSearchBox .excerpt {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed color-mix(in srgb, var(--gm-gray-light) 55%, transparent);
+  font-size: 0.8125rem;
+  color: var(--gm-muted);
+}
+
+.VPLocalSearchBox .excerpt::before {
+  content: '正文片段';
+  display: block;
+  margin-bottom: 0.375rem;
+  font-size: 0.6875rem;
+  font-weight: var(--gm-font-weight-medium);
+  letter-spacing: 0.02em;
+  color: var(--gm-meta);
+}
+
+.VPLocalSearchBox .result:not(:has(.excerpt .vp-doc *)) .excerpt-wrapper {
+  display: none;
+}
